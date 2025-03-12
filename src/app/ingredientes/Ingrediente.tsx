@@ -17,7 +17,7 @@ export default function IngredientesList() {
         }
         const data = await response.json();
         setIngredientes(data);
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message);
       } finally {
         setLoading(false);
@@ -42,7 +42,7 @@ export default function IngredientesList() {
           </tr>
         </thead>
         <tbody>
-          {ingredientes.map((ingrediente) => (
+          {ingredientes.map((ingrediente: any) => (
             <tr key={ingrediente.id} className="text-center">
               <td className="border border-gray-300 px-4 py-2">{ingrediente.nombre}</td>
               <td className="border border-gray-300 px-4 py-2">{ingrediente.cantidad}</td>

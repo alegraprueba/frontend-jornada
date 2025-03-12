@@ -20,7 +20,7 @@ export default function PlatosList() {
         }
         const data = await response.json();
         setPlatos(data);
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message);
       } finally {
         setLoading(false);
@@ -50,7 +50,7 @@ export default function PlatosList() {
       const result = await response.json();
       setMessage(result.message || "Orden realizada con éxito.");
       setShowPopup(true);
-    } catch (error) {
+    } catch (error: any) {
       setMessage(`Error: ${error.message}`);
       setShowPopup(true);
     }
@@ -68,12 +68,12 @@ export default function PlatosList() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Lista de Platos</h1>
       <ul className="space-y-4">
-        {platos.map((plato) => (
+        {platos.map((plato: any) => (
           <li key={plato.id} className="border p-4 rounded-lg shadow">
             <h2 className="text-lg font-semibold">{plato.nombre}</h2>
             <p className="text-gray-600">Ingredientes:</p>
             <ul className="list-disc list-inside">
-              {plato.ingredientes.map((ing, index) => (
+              {plato.ingredientes.map((ing: any, index: any) => (
                 <li key={index}>{`${ing.cantidad} x ${ing.ingrediente}`}</li>
               ))}
             </ul>
