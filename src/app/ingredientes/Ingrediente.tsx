@@ -1,30 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
+import listarIngredientes from "../services/listarIngredientes";
+import IIngrediente from "../interfaces/IIngrediente";
 
 export default function IngredientesList() {
-  const [ingredientes, setIngredientes] = useState([]);
+  const initialStateIngrediente: IIngrediente[] = [{
+    id: "", nombre: "", cantidad: 0, medida: ""
+  }]
+  const [ingredientes, setIngredientes] = useState(initialStateIngrediente);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const initialStateError: string = ""
+  const [error, setError] = useState(initialStateError);
 
   useEffect(() => {
-    const fetchIngredientes = async () => {
-      try {
-        const response = await fetch(
-          "https://vmq0un5d82.execute-api.us-east-2.amazonaws.com/ingredientes"
-        );
-        if (!response.ok) {
-          throw new Error("Error al obtener los ingredientes");
-        }
-        const data = await response.json();
-        setIngredientes(data);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchIngredientes();
+    listarIngredientes(
+      setIngredientes, 
+      setError,
+      setLoading
+    )
   }, []);
 
   if (loading) return <p>Cargando ingredientes...</p>;
@@ -32,13 +25,12 @@ export default function IngredientesList() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Lista de Ingredientes</h1>
+      {/* <h1 className="text-2xl font-bold mb-4">Lista de ingredientes disponibles</h1> */}
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
             <th className="border border-gray-300 px-4 py-2">Nombre</th>
             <th className="border border-gray-300 px-4 py-2">Cantidad</th>
-            <th className="border border-gray-300 px-4 py-2">Medida</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +38,6 @@ export default function IngredientesList() {
             <tr key={ingrediente.id} className="text-center">
               <td className="border border-gray-300 px-4 py-2">{ingrediente.nombre}</td>
               <td className="border border-gray-300 px-4 py-2">{ingrediente.cantidad}</td>
-              <td className="border border-gray-300 px-4 py-2">{ingrediente.medida}</td>
             </tr>
           ))}
         </tbody>

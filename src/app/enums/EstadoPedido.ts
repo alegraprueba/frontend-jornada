@@ -1,0 +1,8 @@
+enum EstadoPedido {
+    EN_ESPERA = 'EN ESPERA',
+    EN_PREPARACION = 'EN PREPARACION',
+    ENTREGADO = 'ENTREGADO',
+    ESPERANDO_REPOSICION_STOCK="ESPERANDO REPOSICION STOCK"
+  }
+  
+  export default EstadoPedido;
